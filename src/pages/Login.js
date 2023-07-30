@@ -18,13 +18,16 @@ const Login = ({ history }) => {
     }
 
     const user = useContext(AuthContext);
-
+    console.log(user)
     const navigate = useNavigate();
 
     const handleSubmit = e => {
+        alert(password)
         e.preventDefault();
+
         signInWithEmailAndPassword(auth, email, password)
             .then(() => {
+
                 console.log(user)
                 navigate('/');
             })
@@ -34,19 +37,20 @@ const Login = ({ history }) => {
     };
 
     if (user) {
+        console.log(user)
         return <Navigate replace to='/' />
     }
     return (
         <>
             <h1>Login</h1>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <div>
                     <label htmlFor="email">E-mail</label>
                     <input
                         type="email"
                         id="email"
                         name="email"
-                        placeholder={user}
+                        placeholder="email"
                         value={email}
                         onChange={setAddress} />
                 </div>
@@ -57,11 +61,12 @@ const Login = ({ history }) => {
                         id="password"
                         name="password"
                         placeholder="password"
+                        autoComplete="current-password"
                         value={password}
                         onChange={setPass}
                     />
                 </div>
-                <button type="submit" onSubmit={handleSubmit}>Login</button>
+                <button type="submit">Login</button>
             </form>
         </>
     );
